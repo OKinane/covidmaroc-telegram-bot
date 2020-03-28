@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  bot:
+    image: covidmarocbot
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    cap_drop:
+      - ALL
+    environment:
+      NODE_ENV: production
+      BOT_TOKEN: ${BOT_TOKEN}
+      BOT_CHANNEL_ID: ${BOT_CHANNEL_ID}

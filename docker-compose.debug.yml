@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  covidmarocbot:
+    image: covidmarocbot
+    build:
+      context: ./src
+      dockerfile: ./src/Dockerfile
+    environment:
+      NODE_ENV: development
+      BOT_TOKEN: ${BOT_TOKEN}
+      BOT_CHANNEL_ID: ${BOT_CHANNEL_ID}
+    ports:
+      - 9229:9229
+    command: node --inspect=0.0.0.0:9229 app.js
