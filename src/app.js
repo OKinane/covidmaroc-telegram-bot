@@ -32,7 +32,7 @@ function getEnvVar(name) {
         const adminIds = await bot.getChatHumanAdminIds(BOT_CHANNEL_ID);
         const callback = checkStats(bot, BOT_CHANNEL_ID, adminIds);
         await callback();
-        setInterval(callback, 0.1 * 60 * 1000);
+        setInterval(callback, 5 * 60 * 1000);
     } catch (error) {
         console.error(error);
         process.exit(1);
