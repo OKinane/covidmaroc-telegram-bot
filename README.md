@@ -10,10 +10,15 @@ Stats source: http://www.covidmaroc.ma/
 
 ## TODO
 - [ ] Switch to TypeScript
+- [ ] Add unit tests
+- [ ] Add static tests and integrate them with vscode
 - [ ] Reduce dependencies count and size
 - [ ] (maybe) Bundle code into main.js and vendor.js files
-- [ ] Apply Node dockerization best practices from Node/Docker docs
-- [ ] Add unit tests
+- [ ] Apply Node dockerization best practices:
+* https://medium.com/better-programming/docker-for-node-js-in-production-b9dc0e9e48e0
+* https://docs.docker.com/develop/develop-images/dockerfile_best-practices/
+* https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md
+* https://nodejs.org/fr/docs/guides/nodejs-docker-webapp/
 - [ ] Setup CI/CD
 - [ ] Enhance error handling
 - [ ] More logs to console and channel admins
