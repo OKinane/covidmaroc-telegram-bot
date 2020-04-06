@@ -15,17 +15,18 @@ function checkStats(bot, chatId) {
     }
 }
 
-function getEnvVar(name) {
+function readEnvVarOnce(name) {
     const value = process.env[name];
     if (!value)
         throw Error(`Environment variable '${name}' is not set`);
+    delete process.env[name];
     return value;
 }
 
 (async function Main() {
     try {
-        const BOT_TOKEN = getEnvVar('BOT_TOKEN');
-        const BOT_CHANNEL_ID = getEnvVar('BOT_CHANNEL_ID');
+        const BOT_TOKEN = readEnvVarOnce('BOT_TOKEN');
+        const BOT_CHANNEL_ID = readEnvVarOnce('BOT_CHANNEL_ID');
 
         const bot = await TelegramBot.create(BOT_TOKEN);
         console.log(`${bot.getName()} is up`);
