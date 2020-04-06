@@ -1,16 +1,16 @@
 const { parseDate } = require("./lib/parseDate");
-const { get } = require("./lib/get");
+const { JSDOM } = require("jsdom");
+const innerText = require("styleless-innertext");
 
 exports.fetchCovidMarocData = async () => {
-    const html = await get('http://www.covidmaroc.ma/Pages/AccueilAR.aspx');
-    const match = html.match(/<\s*?tbody\s*?>.*?<\s*?\/\s*?tbody\s*?>/s);
-    if (!match)
+    const document = await JSDOM.fromURL('http://www.covidmaroc.ma/Pages/AccueilAR.aspx', {userAgent: 'AppleWebKit'});
+    const tbody = document.window.document.querySelector("#WebPartWPQ1 > div.ms-rtestate-field > div:nth-child(1) > table > tbody");
+    if (!tbody)
         throw Error('Cannot find tbody html tag');
-    const noZeroWidthSpaces = match[0].replace(/\u{200b}/ug, ' ');
-    const noTags = noZeroWidthSpaces.replace(/<.*?>/gs, ' ');
-    const noHtmlCodes = noTags.replace(/&\S+;/g, ' ');
-    const whiteSpacesToNewLines = noHtmlCodes.replace(/\s+/g, '\n').trim();
-    const [time, date, recovered, deaths, confirmed, negatives] = whiteSpacesToNewLines.split('\n');
+    const text = innerText(tbody);
+    const noZeroWidthSpaces = text.replace(/\u{200b}/ug, ' ');
+    const singleWhiteSpaces = noZeroWidthSpaces.replace(/\s+/g, '\n').trim();
+    const [time, date, recovered, deaths, confirmed, negatives] = singleWhiteSpaces.split('\n');
     return {
         'date': parseDate(date, time),
         'confirmed': parseInt(confirmed),

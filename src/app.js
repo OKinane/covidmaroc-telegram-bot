@@ -34,7 +34,7 @@ function getEnvVar(name) {
         await callback();
         setInterval(callback, 5 * 60 * 1000);
     } catch (error) {
-        console.error(error);
+        console.error(error.stack);
         process.exit(1);
     }
 })()
