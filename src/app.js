@@ -1,12 +1,12 @@
 const { TelegramBot } = require("./lib/TelegramBot");
 const { fetchCovidMarocData } = require("./fetchCovidMarocData");
-const areEqual = require('fast-deep-equal');
+const { areDeepEqual } = require('./lib/areDeepEqual');
 
 function checkStats(bot, chatId) {
     let lastData = null;
     return async () => {
         const data = await fetchCovidMarocData();
-        if (!areEqual(data, lastData)) {
+        if (!areDeepEqual(data, lastData)) {
             const dataJson = JSON.stringify(data, null, 1);
             await bot.sendMessage(chatId, dataJson);
             lastData = data;
@@ -33,7 +33,7 @@ function readEnvVarOnce(name) {
         const adminIds = await bot.getChatHumanAdminIds(BOT_CHANNEL_ID);
         const callback = checkStats(bot, BOT_CHANNEL_ID, adminIds);
         await callback();
-        setInterval(callback, 5 * 60 * 1000);
+        setInterval(callback, 1000);
     } catch (error) {
         console.error(error.stack);
         process.exit(1);
