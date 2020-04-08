@@ -27,13 +27,14 @@ function readEnvVarOnce(name) {
     try {
         const BOT_TOKEN = readEnvVarOnce('BOT_TOKEN');
         const BOT_CHANNEL_ID = readEnvVarOnce('BOT_CHANNEL_ID');
+        const BOT_SCRAPING_INTERVAL_IN_MINUTES = parseFloat(readEnvVarOnce('BOT_SCRAPING_INTERVAL_IN_MINUTES'));
 
         const bot = await TelegramBot.create(BOT_TOKEN);
         console.log(`${bot.getName()} is up`);
         const adminIds = await bot.getChatHumanAdminIds(BOT_CHANNEL_ID);
         const callback = checkStats(bot, BOT_CHANNEL_ID, adminIds);
         await callback();
-        setInterval(callback, 1000);
+        setInterval(callback, BOT_SCRAPING_INTERVAL_IN_MINUTES * 60 * 1000);
     } catch (error) {
         console.error(error.stack);
         process.exit(1);
