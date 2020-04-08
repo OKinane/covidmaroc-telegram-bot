@@ -1,12 +1,12 @@
 const { TelegramBot } = require("./lib/TelegramBot");
 const { fetchCovidMarocData } = require("./fetchCovidMarocData");
-const { areDeepEqual } = require('./lib/areDeepEqual');
+const util = require('util');
 
 function checkStats(bot, chatId) {
     let lastData = null;
     return async () => {
         const data = await fetchCovidMarocData();
-        if (!areDeepEqual(data, lastData)) {
+        if (!util.isDeepStrictEqual(data, lastData)) {
             const dataJson = JSON.stringify(data, null, 1);
             await bot.sendMessage(chatId, dataJson);
             lastData = data;
