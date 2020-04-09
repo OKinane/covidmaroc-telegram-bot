@@ -8,9 +8,9 @@ exports.fetchCovidMarocData = async () => {
     if (!tbody)
         throw Error('Cannot find tbody html tag');
     const text = innerText(tbody);
-    const noZeroWidthSpaces = text.replace(/\u{200b}/ug, ' ');
-    const singleWhiteSpaces = noZeroWidthSpaces.replace(/\s+/g, '\n').trim();
-    const [time, date, recovered, deaths, confirmed, negatives] = singleWhiteSpaces.split('\n');
+    const noZeroWidthSpaces = text.replace(/\u{200b}/ug, '');
+    const singleWhiteSpaces = noZeroWidthSpaces.replace(/\s+/g, ' ').trim();
+    const [time, date, recovered, deaths, confirmed, negatives] = singleWhiteSpaces.split(' ');
     return {
         'date': parseDate(date, time),
         'confirmed': parseInt(confirmed),
