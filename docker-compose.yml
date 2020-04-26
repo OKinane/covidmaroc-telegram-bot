@@ -4,6 +4,7 @@ services:
   bot:
     image: covidmarocbot
     build: ./src
+    restart: unless-stopped
     cap_drop:
       - ALL
     environment:
