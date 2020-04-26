@@ -1,0 +1,14 @@
+* text=auto
+
+*.js text
+
+.gitignore text export-ignore
+.gitattributes text export-ignore
+*.md text
+
+*.yml text
+*.json text
+
+.env.template text
+.dockerignore text
+Dockerfile text
