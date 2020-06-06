@@ -4,7 +4,7 @@ const innerText = require("styleless-innertext");
 
 exports.fetchCovidMarocData = async () => {
     const document = await JSDOM.fromURL('http://www.covidmaroc.ma/Pages/AccueilAR.aspx', {userAgent: 'AppleWebKit'});
-    const tbody = document.window.document.querySelector("#WebPartWPQ1 > div.ms-rtestate-field > div:nth-child(1) > table > tbody");
+    const tbody = document.window.document.querySelector("#WebPartWPQ1 > div.ms-rtestate-field > div:nth-child(2) > table > tbody");
     if (!tbody)
         throw Error('Cannot find tbody html tag');
     const text = innerText(tbody);
