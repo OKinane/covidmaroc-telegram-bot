@@ -1,6 +1,6 @@
-const TeleBot = require('telebot');
+import * as TeleBot from "telebot";
 
-exports.TelegramBot = class TelegramBot {
+export class TelegramBot {
     bot;
     name;
     constructor(bot, name) {
