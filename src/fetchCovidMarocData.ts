@@ -1,8 +1,9 @@
-const { parseDate } = require("./lib/parseDate");
-const { JSDOM } = require("jsdom");
-const innerText = require("styleless-innertext");
 
-exports.fetchCovidMarocData = async () => {
+import { parseDate } from "./lib/parseDate";
+import { JSDOM } from "jsdom";
+import innerText from "styleless-innertext";
+
+export const fetchCovidMarocData = async () => {
     const document = await JSDOM.fromURL('http://www.covidmaroc.ma/Pages/AccueilAR.aspx', { userAgent: 'AppleWebKit' });
     const tbody = document.window.document.querySelector("#WebPartWPQ1 > div.ms-rtestate-field > div:nth-child(2) > table > tbody");
     if (!tbody)

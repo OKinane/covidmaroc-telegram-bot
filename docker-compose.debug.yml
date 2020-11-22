@@ -3,7 +3,7 @@ version: '3.4'
 services:
   covidmarocbot:
     image: covidmarocbot
-    build: ./src
+    build: .
     environment:
       NODE_ENV: development
       BOT_TOKEN: ${BOT_TOKEN}

@@ -3,7 +3,7 @@ version: '3.4'
 services:
   bot:
     image: covidmarocbot
-    build: ./src
+    build: .
     restart: unless-stopped
     cap_drop:
       - ALL

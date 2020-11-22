@@ -1,6 +1,6 @@
-const { TelegramBot } = require("./lib/TelegramBot");
-const { fetchCovidMarocData } = require("./fetchCovidMarocData");
-const util = require('util');
+import { TelegramBot } from "./lib/TelegramBot";
+import { fetchCovidMarocData } from "./fetchCovidMarocData";
+import * as util from "util";
 
 function checkStats(bot, chatId) {
     let lastData = null;
@@ -31,8 +31,8 @@ function readEnvVarOnce(name) {
 
         const bot = await TelegramBot.create(BOT_TOKEN);
         console.log(`${bot.getName()} is up`);
-        const adminIds = await bot.getChatHumanAdminIds(BOT_CHANNEL_ID);
-        const callback = checkStats(bot, BOT_CHANNEL_ID, adminIds);
+        await bot.getChatHumanAdminIds(BOT_CHANNEL_ID);
+        const callback = checkStats(bot, BOT_CHANNEL_ID);
         await callback();
         setInterval(callback, BOT_SCRAPING_INTERVAL_IN_MINUTES * 60 * 1000);
     } catch (error) {
